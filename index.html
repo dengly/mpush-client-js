@@ -32,7 +32,7 @@
                     config.listener.onHandshake();
                 }
                 if (config.userId) {
-                    bindUser(config.userId, config.tags);
+                    bindUser(config.userId, config.alias, config.tags);
                 }
             },
             onBindUser: function (success) {
@@ -84,11 +84,12 @@
             );
         }
 
-        function bindUser(userId, tags) {
+        function bindUser(userId, alias, tags) {
             if (userId && userId != session.userId) {
                 session.userId = userId;
+                session.alias = alias;
                 session.tags = tags;
-                send(Packet(Command.BIND, {userId: userId, tags: tags}));
+                send(Packet(Command.BIND, {userId: userId, alias:alias, tags: tags}));
             }
         }
 
